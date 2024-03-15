@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id           Int         @id @default(autoincrement())
+  name         String
+  email        String      @unique
+  department   Departments @relation(fields: [departmentId], references: [id])
+  departmentId Int
+  isExec       Boolean     @default(false)
+  Shifts       Shifts[]
+}
+
+model Departments {
+  id    Int     @id @default(autoincrement())
+  name  String
+  users Users[]
+}
+
+model ShiftTypes {
+  id             Int              @id @default(autoincrement())
+  name           String
+  location       String
+  esaNumber      Int
+  shiftSchedules ShiftSchedules[]
+}
+
+model ShiftSchedules {
+  id          Int        @id @default(autoincrement())
+  shiftType   ShiftTypes @relation(fields: [shiftTypeId], references: [id])
+  shiftTypeId Int
+  date        Dates      @relation(fields: [dateID], references: [id])
+  dateID      Int
+  startTime   DateTime   @db.Time()
+  endTime     DateTime   @db.Time()
+  Shifts      Shifts[]
+}
+
+model Shifts {
+  id              Int            @id @default(autoincrement())
+  shiftSchedule   ShiftSchedules @relation(fields: [shiftScheduleId], references: [id])
+  shiftScheduleId Int
+  user            Users          @relation(fields: [userId], references: [id])
+  userId          Int
+  isLeader        Boolean        @default(false)
+}
+
+model Dates {
+  id     Int              @id @default(autoincrement())
+  date   DateTime         @db.Date
+  shifts ShiftSchedules[]
+}
