@@ -9108,6 +9108,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jotai@npm:^2.7.1":
+  version: 2.7.1
+  resolution: "jotai@npm:2.7.1"
+  peerDependencies:
+    "@types/react": ">=17.0.0"
+    react: ">=17.0.0"
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+    react:
+      optional: true
+  checksum: 10c0/7146023b77e32257e120e3a9f3f29ab3972f6ee2146e3c843cc43dc75aaa200c8e3d2513bb6a358755057a23ba716d6b74d56dbcd9d97416d8adf3d50545b096
+  languageName: node
+  linkType: hard
+
 "js-tokens@npm:^3.0.0 || ^4.0.0, js-tokens@npm:^4.0.0":
   version: 4.0.0
   resolution: "js-tokens@npm:4.0.0"
@@ -12188,6 +12203,7 @@ __metadata:
     eslint: "npm:^8"
     eslint-config-next: "npm:14.1.0"
     eslint-plugin-storybook: "npm:^0.8.0"
+    jotai: "npm:^2.7.1"
     next: "npm:14.1.0"
     next-auth: "npm:^4.24.6"
     prisma: "npm:^5.10.2"

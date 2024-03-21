@@ -22,7 +22,9 @@ import { CssBaseline } from '@mui/material';
 import { AppCacheProvider } from '@mui/material-nextjs/v14-pagesRouter';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
-const theme = createTheme({
+import { Provider } from 'jotai';
+
+export const theme = createTheme({
   typography: {
     button: {
       textTransform: 'none'
@@ -34,18 +36,20 @@ const theme = createTheme({
       contrastText: '#fff'
     }
   }
-})
+});
 
 const MyApp: AppType = ({ Component,
   pageProps: { session, ...pageProps } }: AppProps) => {
   return (
     <SessionProvider session={session}>
-      <AppCacheProvider>
-        <ThemeProvider theme={theme} >
-          <CssBaseline />
-          <Component {...pageProps} />
-        </ThemeProvider>
-      </AppCacheProvider>
+      <Provider>
+        <AppCacheProvider>
+          <ThemeProvider theme={theme} >
+            <CssBaseline />
+            <Component {...pageProps} />
+          </ThemeProvider>
+          </AppCacheProvider>
+      </Provider>
     </SessionProvider>
   );
 };

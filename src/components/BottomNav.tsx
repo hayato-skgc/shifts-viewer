@@ -1,19 +1,43 @@
-import type { formatedDate } from "@/pages/views/[date]";
 import { BottomNavigation, BottomNavigationAction, Box } from "@mui/material";
+import { blue, grey, red } from '@mui/material/colors';
+import { useAtom } from "jotai";
 import Link from "next/link";
 import { useState } from "react";
 
-const BottomNav = ({ dates }: { dates: formatedDate[] }) => {
+import { YYYYMMDD, currentDateAtom, datesListAtom } from "@/utils/atoms";
+
+const BottomNav = ({ dates }: { dates: YYYYMMDD[] }) => {
+  const [currentDate, setCurrentDate] = useAtom(currentDateAtom);
+  const [datesList, setDatesList] = useAtom(datesListAtom)
+
   const [value, setValue] = useState(0);
 
-  const navs = dates.map((map) => {
-  const labelTitle = `${map.month}/${map.day}`
+  const navs = datesList.map((date) => {
+    const dateObj = new Date(date)
+    const weekday = dateObj.getDay();
+
+    let textcolor: string
+    if (weekday === 0) {
+      textcolor = red[700];
+    } else if (weekday === 6) {
+      textcolor = blue[700];
+    } else {
+      textcolor = grey[700];
+    }
+
+    const day = dateObj.getDate()
+    const month = dateObj.getMonth() + 1
+
+    const labelTitle = month + '/' + day
 
     return (
       <BottomNavigationAction
         label={labelTitle}
         LinkComponent={Link}
-        href={`/views/${map.date}`}
+        href={`/views/${date}`}
+        sx={{
+          color: textcolor,
+        }}
       />
     )
   })

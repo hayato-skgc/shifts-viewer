@@ -24,6 +24,7 @@
     "@trpc/next": "^11.0.0-next-beta.294",
     "@trpc/react-query": "^11.0.0-next-beta.294",
     "@trpc/server": "^11.0.0-next-beta.294",
+    "jotai": "^2.7.1",
     "next": "14.1.0",
     "next-auth": "^4.24.6",
     "prisma": "^5.10.2",
