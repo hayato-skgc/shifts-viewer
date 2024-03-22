@@ -35,7 +35,7 @@ export const theme = createTheme({
       main: '#329c94',
       contrastText: '#fff'
     }
-  }
+  },
 });
 
 const MyApp: AppType = ({ Component,

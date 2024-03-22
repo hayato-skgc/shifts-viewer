@@ -4,6 +4,8 @@ import { procedure, router } from '../trpc';
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
+import { YYYYMMDD } from '@/utils/atoms';
+
 export const appRouter = router({
   hello: procedure
     .input(
@@ -23,6 +25,18 @@ export const appRouter = router({
         where: { email: input.email }
       });
       return prismaUser;
+    }),
+  dates: procedure
+    .query(async () => {
+      const prismaDates = await prisma.dates.findMany();
+      const formatedDates = prismaDates.map((originDate) => {
+        const formatedDate = originDate.date.toLocaleDateString('sv-SE') as YYYYMMDD
+        return {
+          id: originDate.id,
+          date: formatedDate
+        }
+      })
+      return formatedDates
     }),
 });
 

@@ -6,7 +6,7 @@ import { useState } from "react";
 
 import { YYYYMMDD, currentDateAtom, datesListAtom } from "@/utils/atoms";
 
-const BottomNav = ({ dates }: { dates: YYYYMMDD[] }) => {
+const BottomNav = () => {
   const [currentDate, setCurrentDate] = useAtom(currentDateAtom);
   const [datesList, setDatesList] = useAtom(datesListAtom)
 
@@ -14,16 +14,8 @@ const BottomNav = ({ dates }: { dates: YYYYMMDD[] }) => {
 
   const navs = datesList.map((date) => {
     const dateObj = new Date(date)
-    const weekday = dateObj.getDay();
 
-    let textcolor: string
-    if (weekday === 0) {
-      textcolor = red[700];
-    } else if (weekday === 6) {
-      textcolor = blue[700];
-    } else {
-      textcolor = grey[700];
-    }
+    const weekday = dateObj.getDay();
 
     const day = dateObj.getDate()
     const month = dateObj.getMonth() + 1
@@ -35,9 +27,6 @@ const BottomNav = ({ dates }: { dates: YYYYMMDD[] }) => {
         label={labelTitle}
         LinkComponent={Link}
         href={`/views/${date}`}
-        sx={{
-          color: textcolor,
-        }}
       />
     )
   })
