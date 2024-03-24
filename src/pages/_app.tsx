@@ -22,19 +22,25 @@ import { CssBaseline } from '@mui/material';
 import { AppCacheProvider } from '@mui/material-nextjs/v14-pagesRouter';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
-import { M_PLUS_1p } from 'next/font/google';
+import { Inter, Noto_Sans_JP } from 'next/font/google';
 
 import { Provider } from 'jotai';
 
-const mplus = M_PLUS_1p({
+const inter = Inter({
   weight: '400',
   subsets: ['latin'],
-})
+});
+
+const notojp = Noto_Sans_JP({
+  weight: '400',
+  subsets: ['latin']
+});
 
 export const theme = createTheme({
   typography: {
     fontFamily: [
-      `"${mplus.style.fontFamily}"`,
+      `"${inter.style.fontFamily}"`,
+      `"${notojp.style.fontFamily}"`,
       '"メイリオ"',
       'Meiryo',
       '"ヒラギノ角ゴシック"',

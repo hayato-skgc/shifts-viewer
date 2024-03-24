@@ -33,6 +33,20 @@ export default function ShiftTimeline() {
           <ShiftCard />
         </TimelineContent>
       </TimelineItem>
+      <TimelineItem>
+        <TimelineOppositeContent>
+          <Box sx={{textAlign: 'center'}}>
+            <Typography>09:30<br/>|<br/>10:30</Typography>
+          </Box>
+        </TimelineOppositeContent>
+        <TimelineSeparator>
+          <TimelineDot color='primary' />
+          <TimelineConnector sx={{backgroundColor: 'primary.main'}} />
+        </TimelineSeparator>
+        <TimelineContent>
+          <ShiftCard />
+        </TimelineContent>
+      </TimelineItem>
     </Timeline>
   )
   
