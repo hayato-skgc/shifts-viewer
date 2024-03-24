@@ -8,45 +8,55 @@ import TimelineOppositeContent, { timelineOppositeContentClasses, } from '@mui/l
 import TimelineSeparator from '@mui/lab/TimelineSeparator'
 
 import { Box, Typography } from '@mui/material'
-import ShiftCard from './ShiftCard'
 
-export default function ShiftTimeline() {
+import ShiftCard, { ShiftCardProps } from './ShiftCard'
+
+interface ShiftTimelineProps extends ShiftCardProps {
+  startTime: string,
+  endTime: string
+}
+
+export default function ShiftTimeline(props: { data: ShiftTimelineProps[] }) {
+  const now = new Date()
+  const [targetHour, targetMinutes] = [now.getHours(), now.getMinutes()];
+
+  const TimelineItems = props.data.map((prop) => {
+    const { startTime, endTime, ...cardProps } = prop
+    const [hour, minutes] = endTime.split(':').map(Number);
+    return (
+      <TimelineItem>
+        <TimelineOppositeContent>
+          <Box sx={{textAlign: 'center'}}>
+            <Typography>{ startTime }<br />|<br />{ endTime }</Typography>
+          </Box>
+        </TimelineOppositeContent>
+        <TimelineSeparator>
+          {hour > targetHour || (hour === targetHour && minutes > targetMinutes)
+            ? <>
+              <TimelineDot color='primary'/>
+              <TimelineConnector sx={{backgroundColor: 'primary.main'}} />
+            </>
+            : <>
+              <TimelineDot />
+              <TimelineConnector />
+            </>
+          }
+        </TimelineSeparator>
+        <TimelineContent>
+          <ShiftCard { ...cardProps } />
+        </TimelineContent>
+      </TimelineItem>
+    )
+  })
   return (
     <Timeline
       sx={{
         [`& .${timelineOppositeContentClasses.root}`]: {
-          flex: 0.2,
+          flex: 0.2
         },
       }}
     >
-      <TimelineItem>
-        <TimelineOppositeContent>
-          <Box sx={{textAlign: 'center'}}>
-            <Typography>08:30<br/>|<br/>09:30</Typography>
-          </Box>
-        </TimelineOppositeContent>
-        <TimelineSeparator>
-          <TimelineDot />
-          <TimelineConnector />
-        </TimelineSeparator>
-        <TimelineContent>
-          <ShiftCard />
-        </TimelineContent>
-      </TimelineItem>
-      <TimelineItem>
-        <TimelineOppositeContent>
-          <Box sx={{textAlign: 'center'}}>
-            <Typography>09:30<br/>|<br/>10:30</Typography>
-          </Box>
-        </TimelineOppositeContent>
-        <TimelineSeparator>
-          <TimelineDot color='primary' />
-          <TimelineConnector sx={{backgroundColor: 'primary.main'}} />
-        </TimelineSeparator>
-        <TimelineContent>
-          <ShiftCard />
-        </TimelineContent>
-      </TimelineItem>
+      { TimelineItems }
     </Timeline>
   )
   

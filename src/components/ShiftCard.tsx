@@ -1,7 +1,13 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Box, Button, Card, CardActions, CardContent, Collapse, IconButton, IconButtonProps, Typography } from "@mui/material";
+import { Box, Button, CardActions, Collapse, IconButton, IconButtonProps, Paper, Typography } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import { useState } from "react";
+
+export interface ShiftCardProps {
+  title: string,
+  locate: string,
+  esaNumber: number
+}
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -19,54 +25,46 @@ const ExpandedMore = styled((props: ExpandMoreProps) => {
   }),
 }));
 
-export default function ShiftCard() {
+export default function ShiftCard(props: ShiftCardProps) {
   const [expanded, setExpanded] = useState(false)
   const handleExpandClick = () => {
     setExpanded(!expanded)
   }
 
   return (
-    <Card
+    <Paper
+      elevation={2}
       sx={{
-        position: 'relative',
-        top: '-8px',
-        paddingBottom: '8px',
-        minWidth: '300px',
-        maxWidth: '500px'
-      }}
-    >
-      <CardContent>
-        <Typography
-          variant='h6'
-          component='div'
-          sx={{
-            position: 'relative',
-            top: '-10px'
-          }}
-        >門番</Typography>
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center'
-          }}
+        minWidth: '240px',
+        paddingX: 2,
+        marginBottom: 1
+      }}>
+      <Typography
+        variant='h6'
+        component='div'
+      >{ props.title }</Typography>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center'
+        }}
+      >
+        <Typography color="text.secondary">{ props.locate }</Typography>
+        <ExpandedMore
+          expand={expanded}
+          onClick={handleExpandClick}
+          aria-label="show more"
+          aria-expanded={expanded}
         >
-          <Typography color="text.secondary">講義棟門前</Typography>
-          <ExpandedMore
-            expand={expanded}
-            onClick={handleExpandClick}
-            aria-label="show more"
-            aria-expanded={expanded}
-          >
-            <ExpandMoreIcon />
-          </ExpandedMore>
-        </Box>
-        <Collapse in={expanded}>
-          <Typography>テスト</Typography>
-          <CardActions>
-            <Button size='small'>シフトマニュアルを見る</Button>
-          </CardActions>
-        </Collapse>
-      </CardContent>
-    </Card>
+          <ExpandMoreIcon />
+        </ExpandedMore>
+      </Box>
+      <Collapse in={expanded}>
+        <Typography>テスト</Typography>
+        <CardActions>
+          <Button size='small' href={ `https://s-union.esa.io/posts/${props.esaNumber}` }>シフトマニュアルを見る</Button>
+        </CardActions>
+      </Collapse>
+    </Paper>
   )
 }
