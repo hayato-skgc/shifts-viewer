@@ -43,8 +43,8 @@ model ShiftSchedules {
   shiftTypeId Int
   date        Dates      @relation(fields: [dateID], references: [id])
   dateID      Int
-  startTime   DateTime   @db.Time()
-  endTime     DateTime   @db.Time()
+  startTime   String
+  endTime     String
   Shifts      Shifts[]
 }
 

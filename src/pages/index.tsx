@@ -6,6 +6,8 @@ import { useRouter } from 'next/router';
 import { trpc } from '../utils/trpc';
 
 export default function IndexPage() {
+  const router = useRouter();
+
   const { data: session, status } = useSession()
   const userEmail = session?.user?.email
   const userName = session?.user?.name
@@ -24,7 +26,6 @@ export default function IndexPage() {
     )
   }
 
-  const router = useRouter();
   const { error } = router.query;
   console.log(error)
   const errorMsg = loginError(error);

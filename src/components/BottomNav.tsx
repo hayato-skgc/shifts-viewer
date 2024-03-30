@@ -1,19 +1,16 @@
 import { BottomNavigation, BottomNavigationAction, Box } from "@mui/material";
-import { blue, grey, red } from '@mui/material/colors';
 import { useAtom } from "jotai";
 import Link from "next/link";
-import { useState } from "react";
 
-import { YYYYMMDD, currentDateAtom, datesListAtom } from "@/utils/atoms";
+import { currentDateAtom, datesListAtom } from "@/utils/atoms";
 
 const BottomNav = () => {
   const [currentDate, setCurrentDate] = useAtom(currentDateAtom);
   const [datesList, setDatesList] = useAtom(datesListAtom)
 
-  const [value, setValue] = useState(0);
 
-  const navs = datesList.map((date) => {
-    const dateObj = new Date(date)
+  const navs = datesList.map((obj) => {
+    const dateObj = new Date(obj.date)
 
     const weekday = dateObj.getDay();
 
@@ -26,7 +23,8 @@ const BottomNav = () => {
       <BottomNavigationAction
         label={labelTitle}
         LinkComponent={Link}
-        href={`/views/${date}`}
+        key={obj.id}
+        value={obj.id}
       />
     )
   })
@@ -38,9 +36,9 @@ const BottomNav = () => {
     }}>
       <BottomNavigation
         showLabels
-        value={value}
+        value={currentDate}
         onChange={(event, newValue) => {
-          setValue(newValue);
+          setCurrentDate(newValue);
         }}
       >
         { navs }

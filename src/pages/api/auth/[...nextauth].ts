@@ -1,5 +1,13 @@
+declare module "next-auth" {
+  interface Session extends DefaultSession {
+    user: {
+      id: number;
+    } & DefaultSession["user"]
+  }
+}
+
 import esaProvider from "@/utils/esa";
-import NextAuth from "next-auth";
+import NextAuth, { DefaultSession } from "next-auth";
 import GithubProvider from 'next-auth/providers/github';
 
 import { PrismaClient } from "@prisma/client";
@@ -27,7 +35,7 @@ export default NextAuth({
       })
       if (!prismaUser) return '/?error=unauthorized'
       return true
-    }
+    },
   },
   pages: {
     signIn: '/',
