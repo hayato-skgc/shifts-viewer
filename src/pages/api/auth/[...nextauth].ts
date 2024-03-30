@@ -1,17 +1,17 @@
-declare module "next-auth" {
+declare module 'next-auth' {
   interface Session extends DefaultSession {
     user: {
-      id: number;
-    } & DefaultSession["user"]
+      id: number
+    } & DefaultSession['user']
   }
 }
 
-import esaProvider from "@/utils/esa";
-import NextAuth, { DefaultSession } from "next-auth";
-import GithubProvider from 'next-auth/providers/github';
+import esaProvider from '@/utils/esa'
+import NextAuth, { DefaultSession } from 'next-auth'
+import GithubProvider from 'next-auth/providers/github'
 
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
+import { PrismaClient } from '@prisma/client'
+const prisma = new PrismaClient()
 
 export default NextAuth({
   providers: [
@@ -21,17 +21,18 @@ export default NextAuth({
     }),
     esaProvider({
       clientId: process.env.ESA_ID!,
-      clientSecret: process.env.ESA_SECRET!
-    })
+      clientSecret: process.env.ESA_SECRET!,
+    }),
   ],
   session: {
-    strategy: "jwt",
-    maxAge: 3 * 24 * 60 * 60
+    strategy: 'jwt',
+    maxAge: 3 * 24 * 60 * 60,
   },
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async signIn({ user }) {
       const prismaUser = await prisma.users.findUnique({
-        where: { email: user.email! }
+        where: { email: user.email! },
       })
       if (!prismaUser) return '/?error=unauthorized'
       return true
@@ -39,6 +40,6 @@ export default NextAuth({
   },
   pages: {
     signIn: '/',
-    error: '/?error=error'
-  }
+    error: '/?error=error',
+  },
 })
