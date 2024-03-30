@@ -8,17 +8,12 @@ declare module 'next-auth' {
 
 import esaProvider from '@/utils/esa'
 import NextAuth, { DefaultSession } from 'next-auth'
-import GithubProvider from 'next-auth/providers/github'
 
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 export default NextAuth({
   providers: [
-    GithubProvider({
-      clientId: process.env.GITHUB_ID!,
-      clientSecret: process.env.GITHUB_SECRET!,
-    }),
     esaProvider({
       clientId: process.env.ESA_ID!,
       clientSecret: process.env.ESA_SECRET!,
