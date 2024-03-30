@@ -13,7 +13,7 @@ const meta: Meta<typeof ShiftTimeline> = {
 export default meta
 type Story = StoryObj<typeof ShiftTimeline>
 
-export const sample: Story = {
+export const Sample: Story = {
   args: {
     data: [
       {

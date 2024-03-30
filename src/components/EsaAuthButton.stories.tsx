@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import EsaButton from "./EsaAuthButton";
+import type { Meta, StoryObj } from '@storybook/react'
+import EsaButton from './EsaAuthButton'
 
 const meta: Meta<typeof EsaButton> = {
   title: 'Components/EsaButton',
@@ -7,10 +7,10 @@ const meta: Meta<typeof EsaButton> = {
   tags: ['autodocs'],
   parameters: {
     layout: 'centered',
-  }
+  },
 }
 
-export default meta;
-type Story = StoryObj<typeof EsaButton>;
+export default meta
+type Story = StoryObj<typeof EsaButton>
 
-export const sample: Story = {}
+export const Sample: Story = {}

@@ -28,7 +28,6 @@ export default NextAuth({
     strategy: 'jwt',
     maxAge: 3 * 24 * 60 * 60,
   },
-  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async signIn({ user }) {
       const prismaUser = await prisma.users.findUnique({
