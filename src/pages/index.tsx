@@ -1,6 +1,6 @@
 import EsaButton from '@/components/EsaAuthButton';
 import { Alert, Box, Container, Paper, Typography } from '@mui/material';
-import { signOut, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { trpc } from '../utils/trpc';
@@ -18,11 +18,7 @@ export default function IndexPage() {
 
   if (status === "authenticated") {
     return (
-      <>
-        <p>Signed in as {userName} ({userEmail})</p>
-        <button onClick={() => signOut()}>Sign out</button>
-        <QueryOutput />
-      </>
+      router.replace('/views')
     )
   }
 
@@ -80,16 +76,4 @@ const loginError = (error: string | string[] | undefined) => {
     return <Alert severity='error' sx={{textAlign: 'left'}}>アカウントの登録がされていません。お手数ですが、システム管理者に連絡してください。</Alert>
   }
   return <Alert severity='error' sx={{textAlign: 'left'}}>エラーが発生しました。</Alert>
-}
-
-const QueryOutput = () => {
-  const hello = trpc.hello.useQuery({ text: 'world' });
-
-  if (!hello.data) return <div><p>Now Getting...</p></div>
-
-  return (
-    <div>
-      <p>{hello.data.greeting}</p>
-    </div>
-  );
 }

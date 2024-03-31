@@ -17,16 +17,13 @@ export default function ViewPage() {
     email: session?.user.email!,
   })
 
-  if (!prismaDates.isFetched) return <p>読み込み中・・・</p>
-  if (!prismaDates.data) return <p>エラー：データがありません。</p>
+  if (!prismaDates.isFetched || !prismaShiftList.isFetched) return <p>読み込み中・・・</p>
+  if (!prismaDates.data || !prismaShiftList.data) return <p>エラー：データがありません。</p>
   setDatesList(prismaDates.data)
 
   const today = new Date().toLocaleDateString('sv-SE') as YYYYMMDD
   const matchDate = prismaDates.data.findIndex((index) => index.date === today)
   if (matchDate !== -1) setCurrentDate(matchDate + 1)
-
-  if (!prismaShiftList.isFetched) return <p>読み込み中・・・</p>
-  if (!prismaShiftList.data) return <p>エラー：データがありません。</p>
 
   return (
     <div>
