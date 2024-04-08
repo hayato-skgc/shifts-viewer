@@ -4,13 +4,13 @@
 
 ## 利用技術
 
-- フレームワーク: [Next.js](nextjs.org)
-- バックエンド: Next.js + [tRPC](trps.io)
-- ORM: [Prisma](prisma.io)
+- フレームワーク: [Next.js](https://nextjs.org)
+- バックエンド: Next.js + [tRPC](https://trpc.io)
+- ORM: [Prisma](https://prisma.io)
 
 ## デプロイ方法
 
-[Vercel](vercel.com)にデプロイすることを想定していますが、NetlifyやCloudflare Pagesなど、サーバーサイドで関数が実行できるフロントエンド環境であれば動くかと思います。
+[Vercel](https://vercel.com)にデプロイすることを想定していますが、NetlifyやCloudflare Pagesなど、サーバーサイドで関数が実行できるフロントエンド環境であれば動くかと思います。
 
 ### データベース
 
