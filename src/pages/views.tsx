@@ -20,7 +20,15 @@ export default function ViewPage() {
   })
 
   if (!prismaDates.isFetched || !prismaShiftList.isFetched) return <p>読み込み中・・・</p>
-  if (!prismaDates.data || !prismaShiftList.data) return <p>エラー：データがありません。</p>
+  if (!prismaDates.data?.length || !prismaShiftList.data?.length)
+    return (
+      <Box>
+        <Menu name={session?.user.name!} />
+        <Box sx={{ marginX: 2, marginTop: 2 }}>
+          <Typography variant="h5">データがありません。</Typography>
+        </Box>
+      </Box>
+    )
   setDatesList(prismaDates.data)
 
   const today = new Date().toLocaleDateString('sv-SE') as YYYYMMDD
